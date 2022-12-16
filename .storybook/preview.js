@@ -11,4 +11,11 @@ export const parameters = {
   chakra: {
     theme: theme,
   },
+  backgrounds: {
+    default: 'SkyNote',
+    values: [
+      {
+        name: 'SkyNote',
+        value: '#001834',
+      }]}
 }
