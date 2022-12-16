@@ -17,5 +17,6 @@ export const Primary = Template.bind({});
 
 Primary.args = {
   onChange: () => console.log("zmiana"),
-  placeholder: "Nazwa konstelacji"
+  placeholder: "Nazwa konstelacji",
+  value: "Przykładowa wartość"
 };

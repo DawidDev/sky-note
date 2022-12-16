@@ -2,16 +2,16 @@ import React from "react";
 import { Input } from "@chakra-ui/react";
 
 interface InputTextProps {
-  onChange: () => void
-  placeholder: string
-} 
+  onChange: () => void;
+  placeholder: string;
+  value: string;
+}
 
-const InputText = ({
-  onChange, placeholder
-}: InputTextProps) => {
+const InputText = ({ onChange, placeholder, value }: InputTextProps) => {
   return (
     <Input
       color="textLight"
+      fontSize="15px"
       placeholder={placeholder}
       borderColor="inputBorder"
       _focus={{
@@ -22,6 +22,7 @@ const InputText = ({
         borderColor: "inputBorder",
       }}
       onChange={onChange}
+      value={value}
     />
   );
 };

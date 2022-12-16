@@ -54,7 +54,7 @@ const ButtonAction = ({
 
   const baseProps = {
     borderRadius: "6",
-    fontWeight: "600",
+    fontWeight: "500",
     h: "40px",
     ...sizeWidth,
     fontSize: "18px",
