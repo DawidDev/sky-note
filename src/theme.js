@@ -8,6 +8,7 @@ const colors = {
     main: "#831DA5",
   },
   primaryLight: "#831DA5",
+  inputBorder: "#272D81" 
 };
 
 const theme = extendTheme({ colors });
