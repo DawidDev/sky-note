@@ -10,7 +10,8 @@ const colors = {
     main: "#831DA5",
   },
   primaryLight: "#831DA5",
-  inputBorder: "#272D81" 
+  inputBorder: "#272D81", 
+  itemList: "#002148"
 };
 
 const fonts = {
