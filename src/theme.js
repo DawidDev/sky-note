@@ -12,7 +12,8 @@ const colors = {
   primaryLight: "#831DA5",
   inputBorder: "#272D81", 
   itemList: "#002148",
-  itemListHover: "#272D81"
+  itemListHover: "#272D81",
+  menuBackground: "#272D81"
 };
 
 const fonts = {
