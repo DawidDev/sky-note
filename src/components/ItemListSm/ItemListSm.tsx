@@ -23,7 +23,7 @@ const ItemListSm = ({ data, link = '#' }: ItemListSm) => {
       px="20px"
       borderRadius={6}
       _hover={{
-        backgroundColor: "#272D81"
+        backgroundColor: "itemListHover"
       }}
       transition=".35s"
       cursor="pointer"

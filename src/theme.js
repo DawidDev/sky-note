@@ -11,13 +11,22 @@ const colors = {
   },
   primaryLight: "#831DA5",
   inputBorder: "#272D81", 
-  itemList: "#002148"
+  itemList: "#002148",
+  itemListHover: "#272D81"
 };
 
 const fonts = {
   body: `'Red Hat Display', 'sans-serif'`,
 }
 
-const theme = extendTheme({ colors, fonts });
+const breakpoints = {
+  sm: '320px',
+  md: '768px',
+  lg: '960px',
+  xl: '1200px',
+  '2xl': '1536px',
+}
+
+const theme = extendTheme({ colors, fonts, breakpoints });
 
 export default theme;
