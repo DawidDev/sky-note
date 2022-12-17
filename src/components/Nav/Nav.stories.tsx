@@ -1,13 +1,13 @@
 // Button.stories.ts|tsx
 
-import React from 'react';
+import React from "react";
 
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import Nav  from './Nav';
+import Nav from "./Nav";
 
 export default {
-  title: 'Components/Nav',
+  title: "Components/Nav",
   component: Nav,
 } as ComponentMeta<typeof Nav>;
 
@@ -17,5 +17,5 @@ export const Primary = Template.bind({});
 
 Primary.args = {
   isOpen: true,
-  onClose: () => console.log('close') 
+  onClose: () => console.log("close"),
 };

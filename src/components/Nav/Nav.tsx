@@ -8,9 +8,15 @@ import {
   DrawerCloseButton,
   Stack,
   useBreakpointValue,
-  Link,
+  Link as ChakraLink,
   Text,
 } from "@chakra-ui/react";
+
+import { Link } from "react-router-dom";
+
+
+
+
 interface Nav {
   isOpen: boolean;
   onClose: () => void;
@@ -41,12 +47,12 @@ const Nav = ({ isOpen, onClose }: Nav) => {
             pt={{ md: "30%" }}
           >
             <Stack flexDir="column" fontSize="24px" spacing={4}>
-              <Link>Strona główna</Link>
-              <Link>Konto</Link>
-              <Link>Biblioteka gwiazd</Link>
-              <Link my="35px !important">Dodaj obserwacje</Link>
-              <Link>Moje raporty</Link>
-              <Link>Panel użytkownika</Link>
+              <Link to="/">Strona główna</Link>
+              <Link to="konto">Konto</Link>
+              <Link to="observation-list">Biblioteka gwiazd</Link>
+              <Link to="konto" >Dodaj obserwacje</Link>
+              <Link to="konto">Moje raporty</Link>
+              <Link to="konto">Panel użytkownika</Link>
             </Stack>
           </DrawerBody>
 
