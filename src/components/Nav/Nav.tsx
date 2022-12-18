@@ -14,6 +14,7 @@ import {
 
 import { Link } from "react-router-dom";
 
+import { NavLink } from "react-router-dom";
 
 
 
@@ -47,12 +48,14 @@ const Nav = ({ isOpen, onClose }: Nav) => {
             pt={{ md: "30%" }}
           >
             <Stack flexDir="column" fontSize="24px" spacing={4}>
-              <Link to="/">Strona główna</Link>
-              <Link to="konto">Konto</Link>
-              <Link to="observation-list">Biblioteka gwiazd</Link>
-              <Link to="konto" >Dodaj obserwacje</Link>
-              <Link to="konto">Moje raporty</Link>
-              <Link to="konto">Panel użytkownika</Link>
+            
+              <NavLink to="/">Strona główna</NavLink>
+              <NavLink to="konto">Konto</NavLink>
+              <NavLink to="observation-list">Biblioteka gwiazd</NavLink>
+              <NavLink to="konto" >Dodaj obserwacje</NavLink>
+              <NavLink to="konto">Moje raporty</NavLink>
+              <NavLink to="konto">Panel użytkownika</NavLink>
+         
             </Stack>
           </DrawerBody>
 

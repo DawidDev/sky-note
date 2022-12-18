@@ -3,31 +3,28 @@ import "./App.css";
 
 import Nav from "./components/Nav/Nav";
 
-import {
-  createBrowserRouter,
-  Route,
-  BrowserRouter,
-  Routes,
-} from "react-router-dom";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
 
+import PageHeader from "./components/PageHeader/PageHeader";
 import Home from "./Pages/Home/Home";
 import ObservationList from "./Pages/Home/ObservationList";
-import { Box } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 
 function App() {
-  const [menuStatus, setMenuStatus] = useState<boolean>(true);
+  const [menuStatus, setMenuStatus] = useState<boolean>(false);
   const handleMenu = () => setMenuStatus((prevValue) => !prevValue);
 
   return (
     <>
       <BrowserRouter>
         <Nav isOpen={menuStatus} onClose={handleMenu} />
-        <Box>
+        <VStack border="1px solid #ffffff" spacing="0">
+          <PageHeader handleMenu={handleMenu}/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/observation-list" element={<ObservationList />} />
           </Routes>
-        </Box>
+        </VStack>
       </BrowserRouter>
     </>
   );

@@ -3,6 +3,7 @@
 import React from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 
 import Nav from "./Nav";
 
@@ -11,7 +12,11 @@ export default {
   component: Nav,
 } as ComponentMeta<typeof Nav>;
 
-const Template: ComponentStory<typeof Nav> = (args) => <Nav {...args} />;
+const Template: ComponentStory<typeof Nav> = (args) => (
+  <BrowserRouter>
+    <Nav {...args} />
+  </BrowserRouter>
+);
 
 export const Primary = Template.bind({});
 
