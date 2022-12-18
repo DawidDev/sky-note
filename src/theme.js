@@ -31,7 +31,7 @@ const styles = {
   global: (props) => ({
     body: {
       bg: "#001834",
-      color: "textLight"
+      color: "textLight",
     },
   }),
 };

@@ -18,7 +18,7 @@ function App() {
     <>
       <BrowserRouter>
         <Nav isOpen={menuStatus} onClose={handleMenu} />
-        <VStack border="1px solid #ffffff" spacing="0">
+        <VStack spacing="0">
           <PageHeader handleMenu={handleMenu}/>
           <Routes>
             <Route path="/" element={<Home />} />

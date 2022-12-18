@@ -18,7 +18,7 @@ export const Logotype = ({...props} : any) => (
 
 const PageHeader = ({ handleMenu }: PageHeaderProps) => {
   return (
-    <HStack justifyContent="space-between" maxWidth="1200px" w="100%" position="sticky">
+    <HStack justifyContent="space-between" maxWidth="1200px" w="100%" position="fixed" px="20px">
       <Logotype maxW="300px" />
       <Button onClick={handleMenu} variant="unstyled" color="textLight">
         <Icon path={mdiMenu} size="35px" />
