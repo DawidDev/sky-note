@@ -14,6 +14,7 @@ const Jumbutron = ({}: Jumbutron) => {
       height="100vh"
       overflow="hidden"
       objectFit="cover"
+      marginTop={"-120px !important"}
       mb="-150px !important"
     ></Flex>
   );

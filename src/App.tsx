@@ -7,7 +7,8 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 
 import PageHeader from "./components/PageHeader/PageHeader";
 import Home from "./Pages/Home/Home";
-import ObservationList from "./Pages/Home/ObservationList";
+import ObservationList from "./Pages/ObservationList";
+import LibraryStars from "./Pages/LibraryStars/LibraryStars";
 import { Box, VStack } from "@chakra-ui/react";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/observation-list" element={<ObservationList />} />
+            <Route path="/library-stars" element={<LibraryStars />} />
           </Routes>
         </VStack>
       </BrowserRouter>

@@ -16,8 +16,6 @@ import { Link } from "react-router-dom";
 
 import { NavLink } from "react-router-dom";
 
-
-
 interface Nav {
   isOpen: boolean;
   onClose: () => void;
@@ -48,14 +46,12 @@ const Nav = ({ isOpen, onClose }: Nav) => {
             pt={{ md: "30%" }}
           >
             <Stack flexDir="column" fontSize="24px" spacing={4}>
-            
               <NavLink to="/">Strona główna</NavLink>
               <NavLink to="konto">Konto</NavLink>
-              <NavLink to="observation-list">Biblioteka gwiazd</NavLink>
-              <NavLink to="konto" >Dodaj obserwacje</NavLink>
-              <NavLink to="konto">Moje raporty</NavLink>
+              <NavLink to="/library-stars">Biblioteka gwiazd</NavLink>
+              <NavLink to="/">Dodaj obserwacje</NavLink>
+              <NavLink to="/observation-list">Moje raporty</NavLink>
               <NavLink to="konto">Panel użytkownika</NavLink>
-         
             </Stack>
           </DrawerBody>
 
@@ -67,7 +63,7 @@ const Nav = ({ isOpen, onClose }: Nav) => {
               letterSpacing="0.75px"
               mb="25px"
             >
-              Twój prywatny notatnik nocy
+              Version 0.1
             </Text>
           </DrawerFooter>
         </DrawerContent>
