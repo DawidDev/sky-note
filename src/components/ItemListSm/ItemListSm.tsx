@@ -27,6 +27,7 @@ const ItemListSm = ({ data, link = '#' }: ItemListSm) => {
       }}
       transition=".35s"
       cursor="pointer"
+      maxW="100%"
     >
       {dataDisplay}
     </SimpleGrid>

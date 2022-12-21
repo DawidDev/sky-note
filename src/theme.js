@@ -32,6 +32,7 @@ const styles = {
     body: {
       bg: "#001834",
       color: "textLight",
+      px: "16px !important"
     },
   }),
 };

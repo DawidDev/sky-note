@@ -2,11 +2,13 @@
 const express = require("express");
 const mongo = require("mongodb");
 
+
 // Tworzymy serwer
 const app = express();
 
 // Ustawienie nasłuchiwania
 const myPort = process.env.port || 4000;
+
 
 const dbName = "SkyNote";
 const url =
@@ -16,6 +18,8 @@ const client = new mongo.MongoClient(url);
 app.listen(myPort, "127.0.0.1", () => {
   console.log("Nasłuchujemy na porcie: " + myPort);
 });
+
+
 
 // Jeśli chcemy obsłużyć polecenie get (zapytanie od usera)
 // (link strony, callback)
@@ -29,20 +33,24 @@ app.get("/hi", (req, res) => {
   });
 });
 
-app.get("/library-stars/download/all", async (req, res) => {
+
+
+// Pobieranie całej kolekcji "LibraryStars" - wszystkie gwiazdy
+app.get("/library-stars", async (req, res) => {
   await client.connect();
   console.log("Connected successfully to server");
   const db = client.db(dbName);
   const collection = db.collection("LibraryStars");
-  
+
   const allStars = await collection.find({}).toArray();
 
 
+  res.header('Access-Control-Allow-Origin', '*');
   await res.json({
     data: allStars
   });
 
-  client.close();
+  // client.close();
 });
 
 app.get("/library-stars/add", async (req, res) => {
