@@ -7,10 +7,10 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 
 import PageHeader from "./components/PageHeader/PageHeader";
 import Home from "./Pages/Home/Home";
-import ObservationList from "./Pages/ObservationList";
 import LibraryStars from "./Pages/LibraryStars/LibraryStars";
 import CreateForm from "./Pages/CreateForm/CreateForm";
 import CreateObservation from "./Pages/CreateObservation/CreateObservation";
+import ObservationList from "./Pages/ObservationList/ObservationList"
 import { Box, VStack } from "@chakra-ui/react";
 
 function App() {

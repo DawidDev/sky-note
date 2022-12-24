@@ -79,6 +79,22 @@ app.post("/library-stars/add", async (req, res) => {
   client.close();
 });
 
+// Pobieranie całej kolekcji "LibraryStars" - wszystkie gwiazdy
+app.get("/observation-list", async (req, res) => {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection("ObserveList");
+
+  const allObservation = await collection.find({}).toArray();
+  res.header("Access-Control-Allow-Origin", "*");
+
+  await res.json({
+    data: allObservation,
+  });
+
+  //client.close();
+});
+
 
 // Dodawanie nowej obserwacji do bazy
 app.post("/observe/add", async (req, res) => {
