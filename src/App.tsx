@@ -10,6 +10,7 @@ import Home from "./Pages/Home/Home";
 import ObservationList from "./Pages/ObservationList";
 import LibraryStars from "./Pages/LibraryStars/LibraryStars";
 import CreateForm from "./Pages/CreateForm/CreateForm";
+import CreateObservation from "./Pages/CreateObservation/CreateObservation";
 import { Box, VStack } from "@chakra-ui/react";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/observation-list" element={<ObservationList />} />
             <Route path="/library-stars" element={<LibraryStars />} />
             <Route path="/create-form" element={<CreateForm />} />
+            <Route path="/create-observation" element={<CreateObservation />} />
           </Routes>
         </VStack>
       </BrowserRouter>

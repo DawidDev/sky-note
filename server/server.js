@@ -54,6 +54,7 @@ app.get("/library-stars", async (req, res) => {
   //client.close();
 });
 
+// Dodawanie nowej gwiazdy do bazy
 app.post("/library-stars/add", async (req, res) => {
   await client.connect();
   console.log("Connected successfully to server - create new star");
@@ -68,6 +69,31 @@ app.post("/library-stars/add", async (req, res) => {
     linkToPhoto,
     constellation,
     description: req.body.description ? req.body.description : null,
+  });
+
+  res.header("Access-Control-Allow-Origin", "*");
+  await res.json({
+    status: "Ok",
+  });
+
+  client.close();
+});
+
+
+// Dodawanie nowej obserwacji do bazy
+app.post("/observe/add", async (req, res) => {
+  await client.connect();
+  console.log("Connected successfully to server - create new observe");
+  console.log(req.body);
+  const db = client.db(dbName);
+  const collection = db.collection("ObserveList");
+
+  const { date, location, weatherConditions, visibilityStars } = req.body;
+  await collection.insertOne({
+    date,
+    location,
+    weatherConditions,
+    visibilityStars,
   });
 
   res.header("Access-Control-Allow-Origin", "*");

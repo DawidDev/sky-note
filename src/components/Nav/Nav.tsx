@@ -49,7 +49,8 @@ const Nav = ({ isOpen, onClose }: Nav) => {
               <NavLink to="/">Strona główna</NavLink>
               <NavLink to="konto">Konto</NavLink>
               <NavLink to="/library-stars">Biblioteka gwiazd</NavLink>
-              <NavLink to="/">Dodaj obserwacje</NavLink>
+              <NavLink to="/create-form">Dodaj gwiazdę</NavLink>
+              <NavLink to="/create-observation">Dodaj obserwacje</NavLink>
               <NavLink to="/observation-list">Moje raporty</NavLink>
               <NavLink to="konto">Panel użytkownika</NavLink>
             </Stack>

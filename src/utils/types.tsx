@@ -8,3 +8,21 @@ export type StarType = {
   constellation: string;
   description?: string;
 };
+
+export type Observation = {
+  date: any,
+  location: {
+    closestCity: string,
+    exactLocation: string,
+  },
+  weatherConditions: {
+    cloudLevel: string,
+    precipitation: string, // opady
+    wind: string,
+    temperature: string,
+    fogDensity: string // gęstość mgły
+    visibility: string,
+    phaseOfTheMoon: string
+  }
+  visibilityStars: string
+}
