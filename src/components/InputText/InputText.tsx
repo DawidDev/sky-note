@@ -1,15 +1,17 @@
 import React from "react";
-import { Input } from "@chakra-ui/react";
+import { FormControl, Input } from "@chakra-ui/react";
 
 interface InputTextProps {
-  onChange: () => void;
+  onChange: (e:any) => void;
   placeholder: string;
   value: string;
+  isRequired?: boolean
 }
 
-const InputText = ({ onChange, placeholder, value }: InputTextProps) => {
+const InputText = ({ onChange, placeholder, value, isRequired = false}: InputTextProps) => {
   return (
-    <Input
+    <FormControl isRequired={isRequired}>
+      <Input
       color="textLight"
       fontSize="15px"
       placeholder={placeholder}
@@ -23,7 +25,9 @@ const InputText = ({ onChange, placeholder, value }: InputTextProps) => {
       }}
       onChange={onChange}
       value={value}
+      
     />
+    </FormControl>
   );
 };
 export default InputText;
