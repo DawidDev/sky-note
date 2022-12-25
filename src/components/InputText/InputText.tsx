@@ -5,7 +5,7 @@ interface InputTextProps {
   onChange: (e:any) => void;
   placeholder: string;
   value: string;
-  isRequired?: boolean
+  isRequired?: boolean;
 }
 
 const InputText = ({ onChange, placeholder, value, isRequired = false}: InputTextProps) => {
@@ -25,7 +25,6 @@ const InputText = ({ onChange, placeholder, value, isRequired = false}: InputTex
       }}
       onChange={onChange}
       value={value}
-      
     />
     </FormControl>
   );

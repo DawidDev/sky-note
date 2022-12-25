@@ -10,6 +10,7 @@ export type StarType = {
 };
 
 export type Observation = {
+  _id?: any,
   date: any,
   location: {
     closestCity: string,
@@ -18,8 +19,8 @@ export type Observation = {
   weatherConditions: {
     cloudLevel: string,
     precipitation: string, // opady
-    wind: string,
-    temperature: string,
+    wind: number,
+    temperature: number,
     fogDensity: string // gęstość mgły
     visibility: string,
     phaseOfTheMoon: string

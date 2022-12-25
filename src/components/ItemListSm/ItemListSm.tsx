@@ -1,5 +1,12 @@
 import React from "react";
-import { SimpleGrid, Box, useBreakpointValue } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Box,
+  useBreakpointValue,
+  LinkBox,
+  LinkOverlay,
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 interface ItemListSm {
   data: Array<string>;
@@ -8,7 +15,11 @@ interface ItemListSm {
 }
 
 const ItemListSm = ({ data, link = "#" }: ItemListSm) => {
-  const dataDisplay = data.map((el, index) => <Box key={index}>{el}</Box>);
+  const dataDisplay = data.map((el, index) => (
+    <Link key={index} to={link}>
+      <Box>{el}</Box>
+    </Link>
+  ));
   const totalDataDisplay = useBreakpointValue({
     base: dataDisplay.slice(0, 2),
     md: dataDisplay.slice(0, 3),

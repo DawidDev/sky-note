@@ -79,7 +79,7 @@ app.post("/library-stars/add", async (req, res) => {
   client.close();
 });
 
-// Pobieranie całej kolekcji "LibraryStars" - wszystkie gwiazdy
+// Pobieranie całej kolekcji "ObserveList" - wszystkie obserwacje
 app.get("/observation-list", async (req, res) => {
   await client.connect();
   const db = client.db(dbName);
@@ -95,6 +95,23 @@ app.get("/observation-list", async (req, res) => {
   //client.close();
 });
 
+// Pobieranie wybranej obserwacji na podstawie parametru id
+app.get("/observation-list/:id?", async (req, res) => {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection("ObserveList");
+  const id = req.params.id;
+  const choosedObservation = await collection
+    .find({ _id: mongo.ObjectId(id) })
+    .toArray();
+  res.header("Access-Control-Allow-Origin", "*");
+
+  await res.json({
+    data: choosedObservation,
+  });
+
+  //client.close();
+});
 
 // Dodawanie nowej obserwacji do bazy
 app.post("/observe/add", async (req, res) => {

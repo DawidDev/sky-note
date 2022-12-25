@@ -21,10 +21,11 @@ const LibraryStars = () => {
   }, []);
 
   const starsCollection = data.map((el, index) => {
-    const { date, location, weatherConditions }: Observation = el;
+    const { _id, date, location, weatherConditions }: Observation = el;
     return (
       <ItemListSm
         key={index}
+        link={`/observation-list/${_id}`}
         data={[
           date ?? "data",
           location.exactLocation ?? "lokalizacja",

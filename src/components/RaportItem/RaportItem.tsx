@@ -18,7 +18,7 @@ interface RaportItem {
   tooltipContent: string;
   dataText?: Array<string>;
   variantItem: 1 | 2 | 3;
-  phaseOnMoon?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  phaseOnMoon?: number | string
 }
 
 const TextValue = ({ dataText }: any) => {
