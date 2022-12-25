@@ -25,5 +25,5 @@ export type Observation = {
     visibility: string,
     phaseOfTheMoon: string
   }
-  visibilityStars: string
+  visibilityStars: Array<any>
 }

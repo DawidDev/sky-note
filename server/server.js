@@ -79,6 +79,59 @@ app.post("/library-stars/add", async (req, res) => {
   client.close();
 });
 
+// Aktualizowanie zmian w gwieździe 
+app.post("/library-stars/data/update/:id?", async (req, res) => {
+  await client.connect();
+  console.log("Connected successfully to server - update star");
+  const db = client.db(dbName);
+  const collection = db.collection("LibraryStars");
+
+  const { name, latinName, linkToPhoto, constellation, description } = req.body;
+  const id = req.params.id;
+  await collection.updateOne({ _id: mongo.ObjectId(id) }, {
+    $set: {
+      name,
+      latinName,
+      linkToPhoto,
+      constellation,
+      description
+    }
+  })
+
+  await collection.insertOne({
+    name,
+    latinName,
+    linkToPhoto,
+    constellation,
+    description: req.body.description ? req.body.description : null,
+  });
+
+  res.header("Access-Control-Allow-Origin", "*");
+  await res.json({
+    status: "Ok",
+  });
+
+  client.close();
+});
+
+// Pobieranie wybranej gwiazdy na podstawie parametru id
+app.get("/library-stars/data/:id?", async (req, res) => {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection("LibraryStars");
+  const id = req.params.id;
+  const choosedStar = await collection
+    .find({ _id: mongo.ObjectId(id) })
+    .toArray();
+  res.header("Access-Control-Allow-Origin", "*");
+
+  await res.json({
+    data: choosedStar,
+  });
+
+  //client.close();
+});
+
 // Pobieranie całej kolekcji "ObserveList" - wszystkie obserwacje
 app.get("/observation-list", async (req, res) => {
   await client.connect();
@@ -109,6 +162,18 @@ app.get("/observation-list/:id?", async (req, res) => {
   await res.json({
     data: choosedObservation,
   });
+
+  //client.close();
+});
+
+app.delete("/observation-list/delete/:id?", async (req, res) => {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection("ObserveList");
+  const id = req.params.id;
+  const deleteResult  = await collection
+    .deleteMany({ _id: mongo.ObjectId(id) })
+  res.header("Access-Control-Allow-Origin", "*");
 
   //client.close();
 });

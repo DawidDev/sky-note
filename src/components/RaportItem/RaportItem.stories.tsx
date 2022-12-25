@@ -41,3 +41,17 @@ VariantThird.args = {
   variantItem: 3
 };
 
+export const VariantFour = Template.bind({});
+
+VariantFour.args = {
+  label: "Widoczne gwiazdy",
+  dataStars: [
+    {value: "#", label: "Gwiazda północna"},
+    {value: "#", label: "Gwiazda północna"},
+    {value: "#", label: "Gwiazda północna"},
+    {value: "#", label: "Gwiazda północna"},
+  ],
+  tooltipContent: "To jest dodatkowe info",
+  variantItem: 4
+};
+

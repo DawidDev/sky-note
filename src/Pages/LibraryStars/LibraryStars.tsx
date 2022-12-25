@@ -19,8 +19,8 @@ const LibraryStars = () => {
   }, []);
 
   const starsCollection = data.map((el, index) => {
-    const { name, latinName, constellation } = el;
-    return <ItemListSm key={index} data={[name, latinName, constellation]} />;
+    const { _id, name, latinName, constellation } = el;
+    return <ItemListSm key={index} data={[name, latinName, constellation]} link={`/star/${_id}`}/>;
   });
 
   //console.log(data);

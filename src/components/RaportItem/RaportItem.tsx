@@ -6,10 +6,18 @@ import {
   Flex,
   Tooltip,
   useBreakpointValue,
+
+  VStack,
 } from "@chakra-ui/react";
 import { mdiInformation } from "@mdi/js";
 import Icon from "@mdi/react";
 import { phaseOfMoonData } from "../../Config/phaseOfMoon";
+import { Link } from "react-router-dom";
+
+interface dataStars {
+  value: string;
+  label: string;
+}
 
 interface RaportItem {
   label: string;
@@ -17,8 +25,9 @@ interface RaportItem {
   maxNumber?: number | string;
   tooltipContent: string;
   dataText?: Array<string>;
-  variantItem: 1 | 2 | 3;
-  phaseOnMoon?: number | string
+  dataStars?: Array<dataStars>;
+  variantItem: 1 | 2 | 3 | 4;
+  phaseOnMoon?: number | string;
 }
 
 const TextValue = ({ dataText }: any) => {
@@ -52,6 +61,18 @@ const MoonValue = ({ phaseOnMoon }: any) => {
   );
 };
 
+const StarsValue = ({ dataStars }: any) => {
+  const displayStars = dataStars.map(
+    (star: { value: string; label: string }) => (
+      <Link key={star.value} to={`../star/${star.value}`}>
+        {star.label}
+      </Link>
+    )
+  );
+
+  return <VStack>{displayStars}</VStack>;
+};
+
 const RaportItem = ({
   label,
   number,
@@ -60,6 +81,7 @@ const RaportItem = ({
   dataText,
   variantItem,
   phaseOnMoon,
+  dataStars,
 }: RaportItem) => {
   let renderValue: any = null;
   switch (variantItem) {
@@ -71,6 +93,9 @@ const RaportItem = ({
       break;
     case 3:
       renderValue = <MoonValue phaseOnMoon={phaseOnMoon} />;
+      break;
+    case 4:
+      renderValue = <StarsValue dataStars={dataStars} />;
       break;
     default:
       break;

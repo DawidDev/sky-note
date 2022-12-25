@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Stack,
   FormControl,
@@ -14,15 +14,20 @@ import {
 import InputText from "../../components/InputText/InputText";
 import ButtonAction from "../../components/ButtonAction/ButtonAction";
 import LabelForm from "../../components/LabelForm/LabelForm";
+import { useParams } from "react-router-dom";
 
 import { StarType } from "../../utils/types";
 
 export const CreateForm = () => {
+  const [mongoId, setMongoId] = useState();
   const [name, setName] = useState<string>("");
   const [latinName, setlatinName] = useState<string>("");
   const [linkToPhoto, setLinkToPhoto] = useState<string>("");
   const [constellation, setconstellation] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
+  const { id } = useParams();
+  console.log(id);
 
   const data: StarType = {
     name,
@@ -43,19 +48,22 @@ export const CreateForm = () => {
     });
 
   const successFetch = () => {
-    setName("");
-    setlatinName("");
-    setLinkToPhoto("");
-    setconstellation("");
-    setDescription("");
+    if (!id) {
+      setName("");
+      setlatinName("");
+      setLinkToPhoto("");
+      setconstellation("");
+      setDescription("");
 
-    showToast();
+      showToast();
+    }
   };
 
-  const url = "http://localhost:4000/library-stars/add";
-
   const postData = () => {
-    fetch(url, {
+    // Jeśli jest ID tzn. że edytujemy więc url dal edycji, w przeciwnym razie dodawanie
+    const urlCreateStar = "http://localhost:4000/library-stars/add";
+    const urlUpdateStar = `http://localhost:4000/library-stars/data/update/${id}`;
+    fetch(id ? urlUpdateStar : urlCreateStar, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,13 +76,42 @@ export const CreateForm = () => {
       .catch((error) => console.log(error));
   };
 
+  // Pobieranie danych na temat gwiazdy w przypadku jej edycji
+  useEffect(() => {
+    if (id) {
+      const urlStarData = `http://localhost:4000/library-stars/data/${id}`;
+      fetch(urlStarData, {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          try {
+            const {
+              _id,
+              name,
+              latinName,
+              linkToPhoto,
+              constellation,
+              description,
+            } = res.data[0];
+            console.log(res.data[0]);
+            setMongoId(_id);
+            name && setName(name);
+            latinName && setlatinName(latinName);
+            linkToPhoto && setLinkToPhoto(linkToPhoto);
+            constellation && setconstellation(constellation);
+            description && setDescription(description);
+          } catch (error) {
+            console.log(error);
+          }
+        })
+
+        .catch((error) => console.log(error));
+    }
+  }, []);
+
   return (
-    <Stack
-      w="100%"
-      maxW="1200px"
-      marginTop="140px !important"
-      spacing={4}
-    >
+    <Stack w="100%" maxW="1200px" marginTop="140px !important" spacing={4}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Stack spacing="16px">
           <LabelForm text="Nazwa"></LabelForm>
@@ -116,7 +153,17 @@ export const CreateForm = () => {
         />
       </Stack>
       <Flex justifyContent="flex-end">
-        <ButtonAction handleClick={postData} label="Zapisz" variant={true} />
+        {id ? (
+          <Box>
+            <ButtonAction
+              handleClick={postData}
+              label="Aktualizuj"
+              variant={false}
+            />
+          </Box>
+        ) : (
+          <ButtonAction handleClick={postData} label="Zapisz" variant={true} />
+        )}
       </Flex>
     </Stack>
   );

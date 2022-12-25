@@ -30,6 +30,7 @@ function App() {
             <Route path="/observation-list/:id" element={<SingleObservation />} />
             <Route path="/library-stars" element={<LibraryStars />} />
             <Route path="/create-form" element={<CreateForm />} />
+            <Route path="/star/:id" element={<CreateForm />} />
             <Route path="/create-observation" element={<CreateObservation />} />
           </Routes>
         </VStack>

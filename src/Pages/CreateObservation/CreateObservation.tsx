@@ -1,26 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Stack,
-  FormControl,
-  Flex,
-  Box,
-  SimpleGrid,
-  FormLabel,
-  Text,
-  Button,
-  Toast,
-  Input,
-  useToast,
-  Select,
-} from "@chakra-ui/react";
-
-import {
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-} from "@chakra-ui/react";
+import { Stack, Flex, SimpleGrid, Input, useToast } from "@chakra-ui/react";
 import InputText from "../../components/InputText/InputText";
 import ButtonAction from "../../components/ButtonAction/ButtonAction";
 import LabelForm from "../../components/LabelForm/LabelForm";
@@ -41,7 +20,7 @@ export const CreateObservation = () => {
   const [fogDensity, setFogDensity] = useState<string>("");
   const [visibility, setVisibility] = useState<string>("");
   const [phaseOfTheMoon, setPhaseOfTheMoon] = useState<string>("");
-  const [visibilityStars, setVisibilityStars] = useState<string>(""); // useState<Array<string>>([]);
+  const [visibilityStars, setVisibilityStars] = useState([]); // useState<Array<string>>([]);
 
   const data: Observation = {
     date,
@@ -103,11 +82,9 @@ export const CreateObservation = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        
-
         let options: any = [];
         res.data.forEach((opt: any) =>
-          options.push({ value: `${opt.name}`, label: `${opt.name}` })
+          options.push({ value: `${opt._id}`, label: `${opt.name}` })
         );
         setStarsList(options);
       })
@@ -143,7 +120,7 @@ export const CreateObservation = () => {
           <LabelForm text="Widoczne gwiazdy"></LabelForm>
 
           <InputSelect
-            handleChange={(option: any) => setVisibilityStars(option.value)}
+            handleChange={(options: any) => setVisibilityStars(options)}
             placeholder="Widoczne gwiazdy"
             isMulti={true}
             options={starsList}

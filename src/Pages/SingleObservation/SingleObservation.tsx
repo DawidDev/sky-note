@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import RaportItem from "../../components/RaportItem/RaportItem";
-import { Stack } from "@chakra-ui/react";
+import { Flex, Stack } from "@chakra-ui/react";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { Observation } from "../../utils/types";
-
-interface RaportItemProps {
-  label: string;
-  number?: number | string;
-  maxNumber?: number | string;
-  tooltipContent: string;
-  dataText?: Array<string>;
-  variantItem: 1 | 2 | 3;
-  phaseOnMoon?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
-}
+import ButtonAction from "../../components/ButtonAction/ButtonAction";
 
 const SingleObservation = () => {
   const { id } = useParams();
   const [data, setData] = useState<Array<Observation>>();
 
-  console.log(id);
+  console.log(data)
+
+  //const navigate = useNavigate();
 
   const url = `http://localhost:4000/observation-list/${id}`;
 
@@ -31,11 +25,24 @@ const SingleObservation = () => {
       .then((res) => setData(res.data))
 
       .catch((error) => console.log(error));
+
+
+
   }, []);
 
-  console.log(data);
 
-  //const { date, location, weatherConditions, visibilityStars } = data?[0];
+  const deleteObservation = () => {
+    const urlDelete = `http://localhost:4000/observation-list/delete/${id}`
+    fetch(urlDelete, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        console.log(res.status)
+      })
+
+      .catch((error) => console.log(error));
+      //navigate("/observation-list");
+  }
 
   return (
     <Stack w="100%" maxW="1200px" marginTop="140px !important" spacing={4}>
@@ -91,12 +98,36 @@ const SingleObservation = () => {
               maxNumber={10}
             />
           )}
+          <RaportItem
+              variantItem={4}
+              number={data[0].weatherConditions.fogDensity}
+              label="Widoczne gwiazdy"
+              tooltipContent="Informacje dodatkowe"
+              dataStars={data[0].visibilityStars}
+            />
         </>
       ) : (
         <LoadingSpinner />
       )}
+      <Flex justifyContent="flex-end" pt="50px">
+        <ButtonAction
+          label="Usuń obserwacje"
+          handleClick={deleteObservation}
+          variant={true}
+        />
+      </Flex>
     </Stack>
   );
 };
 
 export default SingleObservation;
+
+/*
+
+interface ButtonActionProps {
+  label: string;
+  handleClick: () => void;
+  variant?: boolean;
+  isBig?: boolean;
+}
+*/
