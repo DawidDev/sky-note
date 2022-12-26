@@ -1,12 +1,15 @@
 // Wczytujemy Express
 const express = require("express");
 const mongo = require("mongodb");
+const cors = require("cors");
 
 // Tworzymy serwer
 const app = express();
 
+// Ustawienie nasłuchiwania
+const myPort = process.env.port || 4000;
+
 app.use(express.json());
-const cors = require("cors");
 
 app.use(
   cors({
@@ -14,154 +17,171 @@ app.use(
   })
 );
 
-// Ustawienie nasłuchiwania
-const myPort = process.env.port || 4000;
-
 const dbName = "SkyNote";
 const url =
   "mongodb+srv://userMaster22:nIo0VqrVPqEWaxgF@cluster0.lg8ndpz.mongodb.net/test";
 const client = new mongo.MongoClient(url);
 
 app.listen(myPort, "127.0.0.1", () => {
-  console.log("Nasłuchujemy na porcie: " + myPort);
-});
-
-// Jeśli chcemy obsłużyć polecenie get (zapytanie od usera)
-// (link strony, callback)
-// - req - zapytanie od klienta
-// - res - odpowiedź serwera
-
-app.get("/hi", (req, res) => {
-  console.log("Przykład");
-  res.json({
-    a: "test",
-  });
+  console.log("Listening at port: " + myPort);
 });
 
 // Pobieranie całej kolekcji "LibraryStars" - wszystkie gwiazdy
 app.get("/library-stars", async (req, res) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("LibraryStars");
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("LibraryStars");
 
-  const allStars = await collection.find({}).toArray();
-  res.header("Access-Control-Allow-Origin", "*");
+    const allStars = await collection.find({}).toArray();
+    res.header("Access-Control-Allow-Origin", "*");
 
-  await res.json({
-    data: allStars,
-  });
-
-  //client.close();
+    await res.json({
+      data: allStars,
+    });
+  } catch (error) {
+    console.log(error);
+    console.log("Error with downloading all stars data");
+  }
 });
 
 // Dodawanie nowej gwiazdy do bazy
 app.post("/library-stars/add", async (req, res) => {
-  await client.connect();
-  console.log("Connected successfully to server - create new star");
-  console.log(req.body);
-  const db = client.db(dbName);
-  const collection = db.collection("LibraryStars");
+  try {
+    await client.connect();
+    console.log("Connected successfully to server - create new star");
+    console.log(req.body);
+    const db = client.db(dbName);
+    const collection = db.collection("LibraryStars");
 
-  const { name, latinName, linkToPhoto, constellation } = req.body;
-  await collection.insertOne({
-    name,
-    latinName,
-    linkToPhoto,
-    constellation,
-    description: req.body.description ? req.body.description : null,
-  });
-
-  res.header("Access-Control-Allow-Origin", "*");
-  await res.json({
-    status: "Ok",
-  });
-
-  client.close();
-});
-
-// Aktualizowanie zmian w gwieździe 
-app.post("/library-stars/data/update/:id?", async (req, res) => {
-  await client.connect();
-  console.log("Connected successfully to server - update star");
-  const db = client.db(dbName);
-  const collection = db.collection("LibraryStars");
-
-  const { name, latinName, linkToPhoto, constellation, description } = req.body;
-  const id = req.params.id;
-  await collection.updateOne({ _id: mongo.ObjectId(id) }, {
-    $set: {
+    const { name, latinName, linkToPhoto, constellation } = req.body;
+    await collection.insertOne({
       name,
       latinName,
       linkToPhoto,
       constellation,
-      description
-    }
-  })
+      description: req.body.description ? req.body.description : null,
+    });
 
-  await collection.insertOne({
-    name,
-    latinName,
-    linkToPhoto,
-    constellation,
-    description: req.body.description ? req.body.description : null,
-  });
+    res.header("Access-Control-Allow-Origin", "*");
+    await res.json({
+      status: "Ok",
+    });
+  } catch (error) {
+    console.log("Error with adding new star", error);
+  }
 
-  res.header("Access-Control-Allow-Origin", "*");
-  await res.json({
-    status: "Ok",
-  });
+  client.close();
+});
+
+// Aktualizowanie zmian w gwieździe
+app.post("/library-stars/data/update/:id?", async (req, res) => {
+  try {
+    await client.connect();
+    console.log("Connected successfully to server - update star");
+    const db = client.db(dbName);
+    const collection = db.collection("LibraryStars");
+
+    const { name, latinName, linkToPhoto, constellation, description } =
+      req.body;
+    const id = req.params.id;
+    await collection.updateOne(
+      { _id: mongo.ObjectId(id) },
+      {
+        $set: {
+          name: name,
+          latinName: latinName,
+          linkToPhoto: linkToPhoto,
+          constellation: constellation,
+          description: description,
+        },
+      },
+      { upsert: false }
+    );
+  } catch (error) {
+    console.log("Error with update data choosedstar", error);
+  }
 
   client.close();
 });
 
 // Pobieranie wybranej gwiazdy na podstawie parametru id
 app.get("/library-stars/data/:id?", async (req, res) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("LibraryStars");
-  const id = req.params.id;
-  const choosedStar = await collection
-    .find({ _id: mongo.ObjectId(id) })
-    .toArray();
-  res.header("Access-Control-Allow-Origin", "*");
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("LibraryStars");
+    const id = req.params.id;
+    const choosedStar = await collection
+      .find({ _id: mongo.ObjectId(id) })
+      .toArray();
+    res.header("Access-Control-Allow-Origin", "*");
 
-  await res.json({
-    data: choosedStar,
-  });
+    await res.json({
+      data: choosedStar,
+    });
+  } catch (error) {
+    console.log("Error with downloading choosed star");
+  }
+
+  //client.close();
+});
+
+// Usuwanie z bazy wybranej gwiazdy na podstawie ID
+app.delete("/library-stars/data/delete/:id?", async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("LibraryStars");
+    const id = req.params.id;
+    const deleteResult = await collection.deleteMany({
+      _id: mongo.ObjectId(id),
+    });
+  } catch (error) {
+    console.log("Error during delete star");
+  }
 
   //client.close();
 });
 
 // Pobieranie całej kolekcji "ObserveList" - wszystkie obserwacje
 app.get("/observation-list", async (req, res) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("ObserveList");
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("ObserveList");
 
-  const allObservation = await collection.find({}).toArray();
-  res.header("Access-Control-Allow-Origin", "*");
+    const allObservation = await collection.find({}).toArray();
+    res.header("Access-Control-Allow-Origin", "*");
 
-  await res.json({
-    data: allObservation,
-  });
+    await res.json({
+      data: allObservation,
+    });
+  } catch (error) {
+    console.log("Error with downloading observation list data");
+  }
 
-  //client.close();
+  client.close();
 });
 
 // Pobieranie wybranej obserwacji na podstawie parametru id
 app.get("/observation-list/:id?", async (req, res) => {
-  await client.connect();
-  const db = client.db(dbName);
-  const collection = db.collection("ObserveList");
-  const id = req.params.id;
-  const choosedObservation = await collection
-    .find({ _id: mongo.ObjectId(id) })
-    .toArray();
-  res.header("Access-Control-Allow-Origin", "*");
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("ObserveList");
+    const id = req.params.id;
+    const choosedObservation = await collection
+      .find({ _id: mongo.ObjectId(id) })
+      .toArray();
+    res.header("Access-Control-Allow-Origin", "*");
 
-  await res.json({
-    data: choosedObservation,
-  });
+    await res.json({
+      data: choosedObservation,
+    });
+  } catch (error) {
+    console.log("Error during downloading choosed observation");
+  }
 
   //client.close();
 });
@@ -171,8 +191,7 @@ app.delete("/observation-list/delete/:id?", async (req, res) => {
   const db = client.db(dbName);
   const collection = db.collection("ObserveList");
   const id = req.params.id;
-  const deleteResult  = await collection
-    .deleteMany({ _id: mongo.ObjectId(id) })
+  const deleteResult = await collection.deleteMany({ _id: mongo.ObjectId(id) });
   res.header("Access-Control-Allow-Origin", "*");
 
   //client.close();
@@ -180,27 +199,30 @@ app.delete("/observation-list/delete/:id?", async (req, res) => {
 
 // Dodawanie nowej obserwacji do bazy
 app.post("/observe/add", async (req, res) => {
-  await client.connect();
-  console.log("Connected successfully to server - create new observe");
-  console.log(req.body);
-  const db = client.db(dbName);
-  const collection = db.collection("ObserveList");
+  try {
+    await client.connect();
+    console.log("Connected successfully to server - create new observe");
+    console.log(req.body);
+    const db = client.db(dbName);
+    const collection = db.collection("ObserveList");
 
-  const { date, location, weatherConditions, visibilityStars } = req.body;
-  await collection.insertOne({
-    date,
-    location,
-    weatherConditions,
-    visibilityStars,
-  });
+    const { date, location, weatherConditions, visibilityStars } = req.body;
+    await collection.insertOne({
+      date,
+      location,
+      weatherConditions,
+      visibilityStars,
+    });
 
-  res.header("Access-Control-Allow-Origin", "*");
-  await res.json({
-    status: "Ok",
-  });
-
+    res.header("Access-Control-Allow-Origin", "*");
+    await res.json({
+      status: "Ok",
+    });
+  } catch (error) {
+    console.log("Error with adding new star");
+  }
   client.close();
 });
 
-// Na każdej metodzie app wykona przy linku '/' te funkcje
-app.all("/", (req, res) => {});
+
+//app.all("/", (req, res) => {});

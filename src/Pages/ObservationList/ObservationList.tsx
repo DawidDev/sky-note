@@ -39,7 +39,7 @@ const LibraryStars = () => {
 
   console.log(data);
   return (
-    <Stack w="100%" maxW="1200px" marginTop="140px !important" spacing={4}>
+    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
       {data.length > 0 ? starsCollection : <LoadingSpinner />}
     </Stack>
   );

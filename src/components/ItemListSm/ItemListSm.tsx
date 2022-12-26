@@ -46,6 +46,7 @@ const ItemListSm = ({ data, link = "#" }: ItemListSm) => {
       transition=".35s"
       cursor="pointer"
       maxW="100%"
+      data-testid="item-list-sm"
     >
       {totalDataDisplay}
     </SimpleGrid>

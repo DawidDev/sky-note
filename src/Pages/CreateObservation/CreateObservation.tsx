@@ -95,7 +95,7 @@ export const CreateObservation = () => {
   console.log(starsList);
 
   return (
-    <Stack w="100%" maxW="1200px" marginTop="140px !important" spacing={4}>
+    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Stack spacing="16px">
           <LabelForm text="Czas"></LabelForm>

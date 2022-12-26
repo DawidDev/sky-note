@@ -6,13 +6,11 @@ import {
   Flex,
   Tooltip,
   useBreakpointValue,
-
   VStack,
 } from "@chakra-ui/react";
 import { mdiInformation } from "@mdi/js";
 import Icon from "@mdi/react";
 import { phaseOfMoonData } from "../../Config/phaseOfMoon";
-import { Link } from "react-router-dom";
 
 interface dataStars {
   value: string;
@@ -64,9 +62,9 @@ const MoonValue = ({ phaseOnMoon }: any) => {
 const StarsValue = ({ dataStars }: any) => {
   const displayStars = dataStars.map(
     (star: { value: string; label: string }) => (
-      <Link key={star.value} to={`../star/${star.value}`}>
+      <Text key={star.value}>
         {star.label}
-      </Link>
+      </Text>
     )
   );
 

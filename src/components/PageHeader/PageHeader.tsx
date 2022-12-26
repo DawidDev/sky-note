@@ -9,7 +9,6 @@ interface PageHeaderProps {
   handleMenu: () => void;
 }
 
-
 export const Logotype = ({...props} : any) => (
   <Box {...props}>
     <Image src={logotype}/>

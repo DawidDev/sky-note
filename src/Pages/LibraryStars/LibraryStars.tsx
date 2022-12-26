@@ -26,6 +26,7 @@ const LibraryStars = () => {
   //console.log(data);
   return (
     <Stack
+      px="20px"
       w="100%"
       maxW="1200px"
       marginTop="140px !important"

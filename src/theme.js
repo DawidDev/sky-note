@@ -1,6 +1,5 @@
 // 1. Import the extendTheme function
 import { extendTheme } from "@chakra-ui/react";
-import { StyleFunctionProps } from "@chakra-ui/theme-tools";
 
 // 2. Extend the theme to include custom colors, fonts, etc
 const colors = {
@@ -32,7 +31,6 @@ const styles = {
     body: {
       bg: "#001834",
       color: "textLight",
-      px: "16px !important"
     },
   }),
 };

@@ -45,7 +45,7 @@ const SingleObservation = () => {
   }
 
   return (
-    <Stack w="100%" maxW="1200px" marginTop="140px !important" spacing={4}>
+    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
       {data ? (
         <>
           {data[0].weatherConditions.cloudLevel && (

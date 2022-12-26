@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Stack,
-  FormControl,
-  Flex,
-  Box,
-  SimpleGrid,
-  FormLabel,
-  Text,
-  Button,
-  Toast,
-  useToast,
-} from "@chakra-ui/react";
+import { Stack, Flex, SimpleGrid, HStack } from "@chakra-ui/react";
 import InputText from "../../components/InputText/InputText";
 import ButtonAction from "../../components/ButtonAction/ButtonAction";
 import LabelForm from "../../components/LabelForm/LabelForm";
 import { useParams } from "react-router-dom";
-
+import { useToast } from "@chakra-ui/react";
 import { StarType } from "../../utils/types";
 
 export const CreateForm = () => {
@@ -29,6 +18,8 @@ export const CreateForm = () => {
   const { id } = useParams();
   console.log(id);
 
+  const toast = useToast();
+
   const data: StarType = {
     name,
     latinName,
@@ -36,16 +27,6 @@ export const CreateForm = () => {
     constellation,
     description,
   };
-
-  const toast = useToast();
-  const showToast = () =>
-    toast({
-      title: "Sukces",
-      description: "Nowa gwiazda została pomyślnie dodana do bazy",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
 
   const successFetch = () => {
     if (!id) {
@@ -55,15 +36,28 @@ export const CreateForm = () => {
       setconstellation("");
       setDescription("");
 
-      showToast();
+      toast({
+        title: "Dodano gwiazdę!",
+        description: "Gwiazda została dodana pomyślnie do bazy",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Edycja zakończona",
+        description: "Nowe dane gwiazdy zostały zapisane",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
-  const postData = () => {
-    // Jeśli jest ID tzn. że edytujemy więc url dal edycji, w przeciwnym razie dodawanie
-    const urlCreateStar = "http://localhost:4000/library-stars/add";
+  const updateData = () => {
     const urlUpdateStar = `http://localhost:4000/library-stars/data/update/${id}`;
-    fetch(id ? urlUpdateStar : urlCreateStar, {
+
+    fetch(urlUpdateStar, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,9 +65,32 @@ export const CreateForm = () => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        response.status === 200 && successFetch();
+        successFetch();
       })
       .catch((error) => console.log(error));
+  };
+
+  const postData = () => {
+    const urlCreateStar = "http://localhost:4000/library-stars/add";
+    fetch(urlCreateStar, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        successFetch();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const deleteStar = () => {
+    const urlDelete = `http://localhost:4000/library-stars/data/delete/${id}`;
+    fetch(urlDelete, {
+      method: "DELETE",
+    }).catch((error) => console.log(error));
+    //navigate("/observation-list");
   };
 
   // Pobieranie danych na temat gwiazdy w przypadku jej edycji
@@ -111,7 +128,7 @@ export const CreateForm = () => {
   }, []);
 
   return (
-    <Stack w="100%" maxW="1200px" marginTop="140px !important" spacing={4}>
+    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Stack spacing="16px">
           <LabelForm text="Nazwa"></LabelForm>
@@ -154,13 +171,18 @@ export const CreateForm = () => {
       </Stack>
       <Flex justifyContent="flex-end">
         {id ? (
-          <Box>
+          <HStack spacing="16px">
             <ButtonAction
-              handleClick={postData}
+              handleClick={updateData}
               label="Aktualizuj"
+              variant={true}
+            />
+            <ButtonAction
+              handleClick={deleteStar}
+              label="Usuń gwiazdę"
               variant={false}
             />
-          </Box>
+          </HStack>
         ) : (
           <ButtonAction handleClick={postData} label="Zapisz" variant={true} />
         )}

@@ -5,6 +5,7 @@ const LoadingSpinner = ({ ...props }: any) => {
   return (
     <Flex w="100%" height="300px" justifyContent="center" alignItems="center">
       <Spinner
+        data-testid="spinner"
         thickness="3px"
         speed="1s"
         emptyColor="transparent"
