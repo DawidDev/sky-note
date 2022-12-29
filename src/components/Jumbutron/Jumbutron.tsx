@@ -12,6 +12,7 @@ const Jumbutron = ({}: Jumbutron) => {
       backgroundPosition="center"
       w="100%"
       height="100vh"
+      minH="680px"
       overflow="hidden"
       objectFit="cover"
       marginTop={"-120px !important"}

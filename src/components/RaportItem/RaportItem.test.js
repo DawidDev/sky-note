@@ -5,16 +5,6 @@ import RaportItem from "./RaportItem";
 import { ChakraProvider, useBreakpointValue } from "@chakra-ui/react";
 import theme from "../../theme";
 
-/* 
-VariantSecond.args = {
-  label: "Poziom zachmurzenia",
-  tooltipContent: "To jest dodatkowe info",
-  dataText: ['duże opady', 'silny wiatr', 'duża mgła', 'słaba widoczność', 'przymrozek'],
-  variantItem: 2
-};
-
-*/
-
 describe("RaportItem", () => {
   window.matchMedia =
     window.matchMedia ||

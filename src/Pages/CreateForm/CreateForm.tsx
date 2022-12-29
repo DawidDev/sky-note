@@ -63,11 +63,11 @@ export const CreateForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => {
-        successFetch();
-      })
-      .catch((error) => console.log(error));
+    }).catch((error) => {
+      console.log(error)
+      return
+    });
+    successFetch();
   };
 
   const postData = () => {
@@ -128,7 +128,13 @@ export const CreateForm = () => {
   }, []);
 
   return (
-    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
+    <Stack
+      w="100%"
+      maxW="1200px"
+      px="20px"
+      marginTop="140px !important"
+      spacing={4}
+    >
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Stack spacing="16px">
           <LabelForm text="Nazwa"></LabelForm>
