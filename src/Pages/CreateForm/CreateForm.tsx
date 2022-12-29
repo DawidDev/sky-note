@@ -6,6 +6,7 @@ import LabelForm from "../../components/LabelForm/LabelForm";
 import { useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { StarType } from "../../utils/types";
+import TitlePage from "../../components/TitlePage/TitlePage";
 
 export const CreateForm = () => {
   const [mongoId, setMongoId] = useState();
@@ -135,6 +136,7 @@ export const CreateForm = () => {
       marginTop="140px !important"
       spacing={4}
     >
+      <TitlePage text={id ? "Edytuj gwiazdę" : "Dodaj gwiazdę"} />
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Stack spacing="16px">
           <LabelForm text="Nazwa"></LabelForm>

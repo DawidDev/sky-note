@@ -1,11 +1,12 @@
 import { VStack, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ItemListSm from "../../components/ItemListSm/ItemListSm";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner"
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import TitlePage from "../../components/TitlePage/TitlePage";
 
 const LibraryStars = () => {
   const [data, setData] = useState([]);
-  const [isFetched, setIsFetched] = useState(false) // do zrobienia w komunikat w przypadku braku gwiazd
+  const [isFetched, setIsFetched] = useState(false); // do zrobienia w komunikat w przypadku braku gwiazd
   const url = "http://localhost:4000/library-stars";
 
   useEffect(() => {
@@ -20,10 +21,16 @@ const LibraryStars = () => {
 
   const starsCollection = data.map((el, index) => {
     const { _id, name, latinName, constellation } = el;
-    return <ItemListSm key={index} data={[name, latinName, constellation]} link={`/star/${_id}`}/>;
+    return (
+      <ItemListSm
+        key={index}
+        data={[name, latinName, constellation]}
+        link={`/star/${_id}`}
+      />
+    );
   });
 
-  //console.log(data);
+
   return (
     <Stack
       px="20px"
@@ -32,6 +39,8 @@ const LibraryStars = () => {
       marginTop="140px !important"
       spacing={4}
     >
+      <TitlePage text="Biblioteka gwiazd"/>
+      <ItemListSm data={['Nazwa', 'Łacińska nazwa', 'Konstelacja']}/>
       {data.length > 0 ? starsCollection : <LoadingSpinner />}
     </Stack>
   );

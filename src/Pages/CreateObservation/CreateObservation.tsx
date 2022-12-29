@@ -8,6 +8,7 @@ import InputNumber from "../../components/InputNumber/InputNumber";
 import InputSelect from "../../components/InputSelect/InputSelect";
 
 import { Observation } from "../../utils/types";
+import TitlePage from "../../components/TitlePage/TitlePage";
 
 export const CreateObservation = () => {
   const [date, setDate] = useState("");
@@ -96,6 +97,7 @@ export const CreateObservation = () => {
 
   return (
     <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
+      <TitlePage text="Dodaj obserwację" />
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Stack spacing="16px">
           <LabelForm text="Czas"></LabelForm>

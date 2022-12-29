@@ -2,6 +2,7 @@ import { VStack, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ItemListSm from "../../components/ItemListSm/ItemListSm";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import TitlePage from "../../components/TitlePage/TitlePage";
 
 import { Observation } from "../../utils/types";
 
@@ -40,6 +41,7 @@ const LibraryStars = () => {
   console.log(data);
   return (
     <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
+      <TitlePage text="Moje obserwacje"/>
       {data.length > 0 ? starsCollection : <LoadingSpinner />}
     </Stack>
   );
