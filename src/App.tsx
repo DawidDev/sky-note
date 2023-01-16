@@ -13,10 +13,11 @@ import CreateObservation from "./Pages/CreateObservation/CreateObservation";
 import ObservationList from "./Pages/ObservationList/ObservationList"
 import SingleObservation from "./Pages/SingleObservation/SingleObservation";
 import Page404 from "./Pages/Page404/Page404";
-import { Box, VStack } from "@chakra-ui/react";
+import { Box, calc, VStack } from "@chakra-ui/react";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [menuStatus, setMenuStatus] = useState<boolean>(false);
@@ -26,8 +27,9 @@ function App() {
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Nav isOpen={menuStatus} onClose={handleMenu} />
-        <VStack spacing="0">
-          <PageHeader handleMenu={handleMenu}/>
+        <PageHeader handleMenu={handleMenu}/>
+        <VStack spacing="0" px="15px" overflowX="hidden" pt="140px" pb="100px">
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/observation-list" element={<ObservationList />} />
@@ -40,6 +42,8 @@ function App() {
             <Route path="*" element={<Page404/>} />
           </Routes>
         </VStack>
+        <Footer />
+      
       </BrowserRouter>
     </ChakraProvider>
   );
