@@ -133,7 +133,6 @@ export const CreateForm = () => {
       w="100%"
       maxW="1200px"
       px="20px"
-      marginTop="140px !important"
       spacing={4}
     >
       <TitlePage text={id ? "Edytuj gwiazdę" : "Dodaj gwiazdę"} />

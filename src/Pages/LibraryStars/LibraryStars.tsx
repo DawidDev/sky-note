@@ -36,11 +36,11 @@ const LibraryStars = () => {
       px="20px"
       w="100%"
       maxW="1200px"
-      marginTop="140px !important"
+      //marginTop="140px !important"
       spacing={4}
     >
       <TitlePage text="Biblioteka gwiazd"/>
-      <ItemListSm data={['Nazwa', 'Łacińska nazwa', 'Konstelacja']}/>
+      <ItemListSm data={['Nazwa', 'N. łacińska', 'Konstelacja']} isHeader={true}/>
       {data.length > 0 ? starsCollection : <LoadingSpinner />}
     </Stack>
   );

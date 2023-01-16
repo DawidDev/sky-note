@@ -40,8 +40,9 @@ const LibraryStars = () => {
 
   console.log(data);
   return (
-    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
+    <Stack w="100%" maxW="1200px" px="20px" spacing={4}>
       <TitlePage text="Moje obserwacje"/>
+      <ItemListSm data={['Data', 'lokalizacja', 'duże miasto', 'temperatura', 'widoczność']} isHeader={true}/>
       {data.length > 0 ? starsCollection : <LoadingSpinner />}
     </Stack>
   );

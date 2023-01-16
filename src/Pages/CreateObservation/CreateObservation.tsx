@@ -41,8 +41,6 @@ export const CreateObservation = () => {
     visibilityStars,
   };
 
-  console.log(data);
-
   const toast = useToast();
   const showToast = () =>
     toast({
@@ -96,7 +94,7 @@ export const CreateObservation = () => {
   console.log(starsList);
 
   return (
-    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
+    <Stack w="100%" maxW="1200px" px="20px" spacing={4}>
       <TitlePage text="Dodaj obserwację" />
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Stack spacing="16px">

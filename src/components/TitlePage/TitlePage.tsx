@@ -17,6 +17,7 @@ const TitlePage = ({ text, ...props }: TitlePage) => {
       fontWeight={700}
       letterSpacing="0.75px"
       opacity="0.4"
+      {...props}
     >
       {text}
     </Text>

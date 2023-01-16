@@ -1,6 +1,7 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import background from "./../../img/background.jpg";
+import ButtonAction from "../ButtonAction/ButtonAction";
 
 interface Jumbutron {}
 
@@ -10,14 +11,15 @@ const Jumbutron = ({}: Jumbutron) => {
       backgroundImage={background}
       backgroundSize="cover"
       backgroundPosition="center"
-      w="100%"
+      w="100vw"
       height="100vh"
       minH="680px"
       overflow="hidden"
       objectFit="cover"
-      marginTop={"-120px !important"}
+      marginTop={"-140px !important"}
       mb="-150px !important"
-    ></Flex>
+    >
+    </Flex>
   );
 };
 export default Jumbutron;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import RaportItem from "../../components/RaportItem/RaportItem";
-import { Flex, Stack } from "@chakra-ui/react";
+import { Flex, Stack, useToast } from "@chakra-ui/react";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { Observation } from "../../utils/types";
 import ButtonAction from "../../components/ButtonAction/ButtonAction";
@@ -25,13 +25,21 @@ const SingleObservation = () => {
       .then((res) => setData(res.data))
 
       .catch((error) => console.log(error));
-
-
-
   }, []);
+
+  const toast = useToast();
+  const showToast = () =>
+    toast({
+      title: "Usunięto",
+      description: "Obserwacja została usunięta z bazy",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
 
 
   const deleteObservation = () => {
+    showToast()
     const urlDelete = `http://localhost:4000/observation-list/delete/${id}`
     fetch(urlDelete, {
       method: "DELETE",
@@ -42,10 +50,11 @@ const SingleObservation = () => {
 
       .catch((error) => console.log(error));
       //navigate("/observation-list");
+      return redirect('/observation-list')
   }
 
   return (
-    <Stack w="100%" maxW="1200px" px="20px" marginTop="140px !important" spacing={4}>
+    <Stack w="100%" maxW="1200px" px="20px" spacing={4}>
       {data ? (
         <>
           {data[0].weatherConditions.cloudLevel && (
@@ -61,7 +70,7 @@ const SingleObservation = () => {
           <RaportItem
             variantItem={2}
             label="Warunki atmosferyczne"
-            tooltipContent="Informacje dodatkowe"
+            tooltipContent="Warunki atmosferycznie panujące podczas obserwacji"
             dataText={[
               `opady: ${[
                 data[0].weatherConditions.precipitation.toLowerCase(),
@@ -75,7 +84,7 @@ const SingleObservation = () => {
             <RaportItem
               variantItem={3}
               label="Faza księżyca"
-              tooltipContent="Informacje dodatkowe"
+              tooltipContent="Faza księżyca wyrażona w klasycznej skali"
               phaseOnMoon={data[0].weatherConditions.phaseOfTheMoon}
             />
           )}
@@ -84,7 +93,7 @@ const SingleObservation = () => {
               variantItem={1}
               number={data[0].weatherConditions.visibility}
               label="Widoczność"
-              tooltipContent="Informacje dodatkowe"
+              tooltipContent="Przejrzystość powietrza, widoczność podczas obserwacji. Im wyższa liczba tym gorsza widoczność."
               maxNumber={10}
             />
           )}
@@ -94,7 +103,7 @@ const SingleObservation = () => {
               variantItem={1}
               number={data[0].weatherConditions.fogDensity}
               label="Gęstość mgły"
-              tooltipContent="Informacje dodatkowe"
+              tooltipContent="Gęstość mgły wyrażona w skali od 1-10. Im wyższa liczba tym silniejsza mgła."
               maxNumber={10}
             />
           )}
@@ -102,7 +111,7 @@ const SingleObservation = () => {
               variantItem={4}
               number={data[0].weatherConditions.fogDensity}
               label="Widoczne gwiazdy"
-              tooltipContent="Informacje dodatkowe"
+              tooltipContent="Widoczne gwiazdy podczas obserwacji. Dostępne są tylko te które są zdefiniowane w bazie danych."
               dataStars={data[0].visibilityStars}
             />
         </>
