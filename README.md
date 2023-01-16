@@ -29,3 +29,11 @@ and after run React app so just in main directory
 ```bash
   npm start
 ```
+To run storybook in root directory
+```bash
+  npm run storybook
+```
+To run all tests put in terminal in root directory
+```bash
+  npm run test
+```
