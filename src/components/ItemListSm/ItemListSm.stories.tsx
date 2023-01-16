@@ -28,3 +28,9 @@ export const StarsList = Template.bind({});
 StarsList.args = {
   data: ["Gwiazda polarna", "Pas Oriona", "Supernova"],
 };
+
+export const StarsListHeader = Template.bind({});
+StarsListHeader.args = {
+  data: ["Nazwa", "Łacińska nazwa", "Konstelacja"],
+  isHeader: true
+};

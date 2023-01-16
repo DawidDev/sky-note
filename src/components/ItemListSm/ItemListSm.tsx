@@ -11,10 +11,11 @@ import { Link } from "react-router-dom";
 interface ItemListSm {
   data: Array<string>;
   onClick?: () => void; // do decyzji
-  link?: string; // do decyzji
+  link?: string;
+  isHeader?: boolean
 }
 
-const ItemListSm = ({ data, link = "#" }: ItemListSm) => {
+const ItemListSm = ({ data, link = "#", isHeader }: ItemListSm) => {
   const dataDisplay = data.map((el, index) => (
     <Link key={index} to={link}>
       <Box>{el}</Box>
@@ -26,6 +27,26 @@ const ItemListSm = ({ data, link = "#" }: ItemListSm) => {
     lg: dataDisplay.slice(0, data.length),
   });
 
+  const headerDisplay = data.map((el, index)=> (
+    <Box key={index}>{el}</Box>
+  ))
+
+  const totalHeaderDisplay = useBreakpointValue({
+    base: headerDisplay.slice(0, 2),
+    md: headerDisplay.slice(0, 3),
+    lg: headerDisplay.slice(0, data.length),
+  });
+
+
+  const variantStyle = {
+    backgroundColor: !isHeader ? "itemList" : "none",
+    _hover:{
+      backgroundColor: !isHeader ? "itemListHover" : "none",
+    },
+    fontWeight: isHeader ? 800 : 400,
+    letterSpacing: isHeader ? "0.5px" : "none"
+  }
+
   return (
     <SimpleGrid
       columns={{
@@ -36,19 +57,15 @@ const ItemListSm = ({ data, link = "#" }: ItemListSm) => {
       spacingX="40px"
       spacingY="0"
       color="textLight"
-      backgroundColor="itemList"
       py="10px"
       px="20px"
       borderRadius={6}
-      _hover={{
-        backgroundColor: "itemListHover",
-      }}
       transition=".35s"
-      cursor="pointer"
       maxW="100%"
-      data-testid="item-list-sm"
+      data-testid="item-list-sm" 
+      {...variantStyle}
     >
-      {totalDataDisplay}
+      {isHeader ? totalHeaderDisplay : totalDataDisplay}
     </SimpleGrid>
   );
 };
