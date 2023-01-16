@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Box, VStack, Text, HStack, Image } from "@chakra-ui/react";
 import Icon from "@mdi/react";
 import { mdiMenu } from "@mdi/js";
@@ -16,8 +16,25 @@ export const Logotype = ({...props} : any) => (
 )
 
 const PageHeader = ({ handleMenu }: PageHeaderProps) => {
+
+  const [scroll, setScroll] = useState(0);
+  const [background, setBackground] = useState('transparent');
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scroll]);
+
+  function handleScroll() {
+    setScroll(window.pageYOffset);
+    if (scroll > 50) {
+      setBackground('#001834');
+    } else {
+      setBackground('transparent')
+    }
+  }
   return (
-    <HStack justifyContent="space-between" maxWidth="1200px" w="100%" position="fixed">
+    <HStack justifyContent="space-between" w="100%" px="24px" transition="0.25s" position="fixed" backgroundColor={background}>
       <Logotype maxW="300px" />
       <Button onClick={handleMenu} variant="unstyled" color="textLight">
         <Icon path={mdiMenu} size="35px" />
